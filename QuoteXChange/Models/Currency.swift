@@ -7,18 +7,17 @@
 
 import Foundation
 
-// Define the Currency model that matches the API response structure
 struct Currency: Identifiable, Codable, Hashable {
-    var id: String { code }  // Use 'code' as the unique identifier
-    let code: String          // Currency code (e.g., "USD", "EUR")
-    let az: String?           // Name in Azerbaijani (optional in case it can be null)
-    let en: String?           // Name in English (optional)
-    let tr: String?           // Name in Turkish (optional)
-    let ru: String?           // Name in Russian (optional)
+    var id: String { code }
+    let code: String
+    let az: String
+    let en: String
+    let tr: String
+    let ru: String
 }
 
 
 struct ErrorWrapper: Identifiable {
-    let id = UUID()         // Unique ID for each error
-    let message: String     // Error message to display
+    let id = UUID()
+    let message: String
 }

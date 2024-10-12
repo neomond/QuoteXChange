@@ -8,21 +8,9 @@
 import Foundation
 
 extension Date {
-    
-    // Default format: "yyyy-MM-dd"
-        func formatted() -> String {
-            return formatted(with: "yyyy-MM-dd")
-        }
-        
-        // Custom format function
-        func formatted(with format: String) -> String {
-            let formatter = DateFormatter()
-            formatter.dateFormat = format
-            return formatter.string(from: self)
-        }
-        
-        // Example for formatting to a specific time format
-        func formattedTime() -> String {
-            return formatted(with: "HH:mm:ss")
-        }
+    func formattedCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        return dateFormatter.string(from: self)
+    }
 }

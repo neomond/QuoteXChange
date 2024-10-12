@@ -90,23 +90,4 @@ struct QuotesConverterView: View {
 }
 
 
-struct QuotesConverterView_Previews: PreviewProvider {
-    static var previews: some View {
-        let mockViewModel = QuotesConverterViewModel()
-        
-        // Pre-fill the mock view model with data
-        mockViewModel.primaryCurrency = Currency(code: "USD", az: "Dollar", en: "Dollar", tr: "Dolar", ru: "Доллар")
-        mockViewModel.secondaryCurrency = Currency(code: "EUR", az: "Euro", en: "Euro", tr: "Euro", ru: "Евро")
-        mockViewModel.amount = "100"
-        mockViewModel.convertedAmount = 85.75
-        mockViewModel.currencyList = [
-            Currency(code: "USD", az: "Dollar", en: "Dollar", tr: "Dolar", ru: "Доллар"),
-            Currency(code: "EUR", az: "Euro", en: "Euro", tr: "Euro", ru: "Евро"),
-            Currency(code: "GBP", az: "Pound", en: "Pound", tr: "Pound", ru: "Фунт")
-        ]
-        
-        return QuotesConverterView(viewModel: mockViewModel)
-    }
-}
-
 

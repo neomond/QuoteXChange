@@ -28,11 +28,6 @@ struct CurrencyPickersView: View {
                                 .foregroundColor(.black)
                                 .tag(currency as Currency?)
                         }
-                    }.onAppear {
-                        // Provide a default value if primaryCurrency is nil
-                        if primaryCurrency == nil {
-                            primaryCurrency = currencyList.first
-                        }
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding(8)
@@ -67,11 +62,6 @@ struct CurrencyPickersView: View {
                                 .foregroundColor(.black) 
                                 .tag(currency as Currency?)
                         }
-                    }.onAppear {
-                        // Provide a default value if secondaryCurrency is nil
-                        if secondaryCurrency == nil {
-                            secondaryCurrency = currencyList.first
-                        }
                     }
                     .pickerStyle(MenuPickerStyle())
                     .padding(8)
@@ -86,14 +76,10 @@ struct CurrencyPickersView: View {
     
     // Swap the primary and secondary currencies
     private func swapCurrencies() {
-        if let tempCurrency = primaryCurrency {
+        let tempCurrency = primaryCurrency
             primaryCurrency = secondaryCurrency
             secondaryCurrency = tempCurrency
-        } else {
-            // Ensure there’s no nil after the swap
-            primaryCurrency = secondaryCurrency ?? currencyList.first
-            secondaryCurrency = primaryCurrency
-        }
+       
     }
 }
 
