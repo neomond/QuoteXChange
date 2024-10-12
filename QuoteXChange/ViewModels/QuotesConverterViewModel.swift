@@ -55,58 +55,42 @@ class QuotesConverterViewModel: ObservableObject {
 
     /// Fetch the conversion rates and calculate the converted amount
     func convertCurrency() {
-        guard let fromCurrency = primaryCurrency?.code,
-              let toCurrency = secondaryCurrency?.code,
-              let amount = Double(amount) else {
-            self.errorWrapper = ErrorWrapper(message: "Invalid input or currencies")
-            return
-        }
-        
-        let date = getCurrentDate() /// Get current date in "yyyy-MM-dd" format
-        isLoading = true
+           guard let fromCurrency = primaryCurrency?.code,
+                 let toCurrency = secondaryCurrency?.code,
+                 let amount = Double(amount) else {
+               self.errorWrapper = ErrorWrapper(message: "Invalid input or currencies")
+               return
+           }
+           
+           let date = Date().formattedCurrentDate() 
+           isLoading = true
 
-        currencyAPI.fetchCurrencyRate(from: fromCurrency, date: date) { [weak self] result in
-            DispatchQueue.main.async {
-                self?.isLoading = false
-                switch result {
-                case .success(let rates):
-                    /// Try to find the rate for the selected currencies in both directions
-                    if let rateInfo = rates.first(where: { $0.from == fromCurrency && $0.to == toCurrency }) {
-                        self?.convertedAmount = rateInfo.result * amount
-                        print("Success: \(rateInfo.result)")
-                        
-                    } else if let rateInfo = rates.first(where: { $0.from == toCurrency && $0.to == fromCurrency }) {
-                        /// If no direct rate found, try the reverse conversion
-                        self?.convertedAmount = amount / rateInfo.result /// Inverse the rate
-                        print("Success (inverted): \(1 / rateInfo.result)")
-                    } else {
-                        self?.errorWrapper = ErrorWrapper(message: "Conversion rate not found.")
-                        print("Conversion rate not found for \(fromCurrency) to \(toCurrency)")
-                    }
-                case .failure(let error):
-                    self?.errorWrapper = ErrorWrapper(message: error.localizedDescription)
-                    print("Error: \(error.localizedDescription)")
-                }
-            }
-        }
-    }
+           currencyAPI.fetchCurrencyRate(from: fromCurrency, date: date) { [weak self] result in
+               DispatchQueue.main.async {
+                   self?.isLoading = false
+                   switch result {
+                   case .success(let rates):
+                       if let rateInfo = rates.first(where: { $0.from == fromCurrency && $0.to == toCurrency }) {
+                           self?.convertedAmount = rateInfo.result * amount
+                           print("Success: \(rateInfo.result)")
+                       } else if let rateInfo = rates.first(where: { $0.from == toCurrency && $0.to == fromCurrency }) {
+                           self?.convertedAmount = amount / rateInfo.result
+                           print("Success (inverted): \(1 / rateInfo.result)")
+                       } else {
+                           self?.errorWrapper = ErrorWrapper(message: "Conversion rate not found.")
+                           print("Conversion rate not found for \(fromCurrency) to \(toCurrency)")
+                       }
+                   case .failure(let error):
+                       self?.errorWrapper = ErrorWrapper(message: error.localizedDescription)
+                       print("Error: \(error.localizedDescription)")
+                   }
+               }
+           }
+       }
 
-    
-    private func getCurrentDate() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: Date())
-    }
     
     func validateAmountInput(_ input: String) -> String {
-        let filtered = input.filter { "0123456789.".contains($0) }
-        
-        let decimalCount = filtered.filter { $0 == "." }.count
-        if decimalCount > 1 {
-            return String(filtered.prefix { $0 != "." || decimalCount == 1 })
-        }
-        
-        return filtered
+        return input.validatedAmountInput()
     }
 }
 

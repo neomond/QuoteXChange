@@ -16,6 +16,7 @@
 		7A59E2A12CB91F0F00C2E253 /* CurrencyAPIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A59E2A02CB91F0F00C2E253 /* CurrencyAPIError.swift */; };
 		7A59E2A52CB92C3700C2E253 /* Date+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A59E2A42CB92C3700C2E253 /* Date+Ext.swift */; };
 		7AC3EE842CB976FC003BCB0F /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 7AC3EE832CB976FC003BCB0F /* Alamofire */; };
+		7AC3EE862CBB0CFF003BCB0F /* Input+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC3EE852CBB0CFF003BCB0F /* Input+Ext.swift */; };
 		7AD263F22CB825DD001BBE0F /* QuoteXChangeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AD263F12CB825DD001BBE0F /* QuoteXChangeApp.swift */; };
 		7AD263F62CB825DE001BBE0F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AD263F52CB825DE001BBE0F /* Assets.xcassets */; };
 		7AD263F92CB825DE001BBE0F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7AD263F82CB825DE001BBE0F /* Preview Assets.xcassets */; };
@@ -36,6 +37,7 @@
 		7A59E29D2CB91B6400C2E253 /* QuoteCacheManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteCacheManager.swift; sourceTree = "<group>"; };
 		7A59E2A02CB91F0F00C2E253 /* CurrencyAPIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAPIError.swift; sourceTree = "<group>"; };
 		7A59E2A42CB92C3700C2E253 /* Date+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Ext.swift"; sourceTree = "<group>"; };
+		7AC3EE852CBB0CFF003BCB0F /* Input+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Input+Ext.swift"; sourceTree = "<group>"; };
 		7AD263EE2CB825DD001BBE0F /* QuoteXChange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuoteXChange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7AD263F12CB825DD001BBE0F /* QuoteXChangeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuoteXChangeApp.swift; sourceTree = "<group>"; };
 		7AD263F52CB825DE001BBE0F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				7AD263F52CB825DE001BBE0F /* Assets.xcassets */,
 				7A59E2A42CB92C3700C2E253 /* Date+Ext.swift */,
 				7A54D1922CB945A900F6209F /* CurrencyPickerView.swift */,
+				7AC3EE852CBB0CFF003BCB0F /* Input+Ext.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -304,6 +307,7 @@
 				7A59E29E2CB91B6400C2E253 /* QuoteCacheManager.swift in Sources */,
 				7A59E2932CB8512100C2E253 /* MainTabView.swift in Sources */,
 				7AD264072CB826BE001BBE0F /* QuotesConverterView.swift in Sources */,
+				7AC3EE862CBB0CFF003BCB0F /* Input+Ext.swift in Sources */,
 				7A54D1932CB945A900F6209F /* CurrencyPickerView.swift in Sources */,
 				7AD2641C2CB83B7B001BBE0F /* Quote.swift in Sources */,
 				7AD2641A2CB83B73001BBE0F /* CurrencyRate.swift in Sources */,
