@@ -17,7 +17,7 @@ struct MainTabView: View {
             
             OnlineQuotesView()
                 .tabItem {
-                    Label("Live Quotes", systemImage: "chart.line.uptrend.xyaxis")
+                    Label("Quotes", systemImage: "chart.line.uptrend.xyaxis")
                 }
         }
     }

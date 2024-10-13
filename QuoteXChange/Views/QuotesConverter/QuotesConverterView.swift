@@ -19,7 +19,6 @@ struct QuotesConverterView: View {
                         ProgressView("Loading currencies...")
                             .padding()
                     } else {
-                        
                         VStack(alignment: .leading) {
                             Text("Enter Amount")
                                 .font(.headline)
@@ -55,7 +54,7 @@ struct QuotesConverterView: View {
                                 .foregroundColor(.gray)
                                 .padding(.bottom, 4)
                             
-                            Text("\(viewModel.convertedAmount, specifier: "%.2f")")
+                            Text("\(viewModel.convertedAmount, specifier: "%.4f")")
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                                 .foregroundColor(.blue)
@@ -94,6 +93,7 @@ struct QuotesConverterView: View {
         }
     }
 }
+
 
 
 
