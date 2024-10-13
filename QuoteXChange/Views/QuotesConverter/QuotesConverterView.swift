@@ -13,81 +13,88 @@ struct QuotesConverterView: View {
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 20) {
-                if viewModel.isLoading {
-                    ProgressView("Loading currencies...")
-                        .padding()
-                } else {
-                    VStack(alignment: .leading) {
-                        Text("Enter Amount")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding(.leading)
-                        TextField("Amount", text: $viewModel.amount)
-                            .keyboardType(.decimalPad)
-                            .focused($isTextFieldFocused)
-                            .onChange(of: viewModel.amount) { newValue in
-                                viewModel.amount = viewModel.validateAmountInput(newValue)
-                            }
+            ScrollView {
+                VStack(spacing: 20) {
+                    if viewModel.isLoading {
+                        ProgressView("Loading currencies...")
                             .padding()
-                            .background(Color(UIColor.systemGray6))
-                            .cornerRadius(10)
-                            .shadow(radius: 1)
-                            .padding(.horizontal)
+                    } else {
+                        
+                        VStack(alignment: .leading) {
+                            Text("Enter Amount")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .padding(.leading)
+                            
+                            TextField("Amount", text: $viewModel.amount)
+                                .keyboardType(.decimalPad)
+                                .focused($isTextFieldFocused)
+                                .onChange(of: viewModel.amount) { newValue in
+                                    viewModel.amount = viewModel.validateAmountInput(newValue)
+                                }
+                                .padding()
+                                .background(Color(UIColor.systemGray6))
+                                .cornerRadius(10)
+                                .shadow(radius: 1)
+                                .padding(.horizontal)
+                        }
+                        .padding(.top, 40)
+                        
+                        HStack {
+                            CurrencyPickersView(
+                                primaryCurrency: $viewModel.primaryCurrency,
+                                secondaryCurrency: $viewModel.secondaryCurrency,
+                                currencyList: viewModel.currencyList
+                            )
+                            .frame(height: 60)
+                        }
+                        
+                        VStack {
+                            Text("Converted Amount")
+                                .font(.headline)
+                                .foregroundColor(.gray)
+                                .padding(.bottom, 4)
+                            
+                            Text("\(viewModel.convertedAmount, specifier: "%.2f")")
+                                .font(.largeTitle)
+                                .fontWeight(.bold)
+                                .foregroundColor(.blue)
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(12)
+                                .shadow(radius: 2)
+                                .padding(.horizontal)
+                        }
+                        
+                        Button(action: {
+                            viewModel.convertCurrency()
+                        }) {
+                            Text("Convert")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .padding()
+                                .frame(maxWidth: .infinity)
+                                .background(Color.blue)
+                                .cornerRadius(12)
+                                .foregroundColor(.white)
+                                .shadow(radius: 2)
+                        }
+                        .padding(.horizontal)
                     }
-                    
-                    HStack {
-                        CurrencyPickersView(
-                            primaryCurrency: $viewModel.primaryCurrency,
-                            secondaryCurrency: $viewModel.secondaryCurrency,
-                            currencyList: viewModel.currencyList
-                        )
-                        .frame(height: 60)
-                    }
-                    
-                    Spacer().frame(height: 20)
-                    
-                    VStack {
-                        Text("Converted Amount")
-                            .font(.headline)
-                            .foregroundColor(.gray)
-                            .padding(.bottom, 4)
-                        Text("\(viewModel.convertedAmount, specifier: "%.2f")")
-                            .font(.largeTitle)
-                            .fontWeight(.bold)
-                            .foregroundColor(.blue)
-                            .padding()
-                            .background(Color.white)
-                            .cornerRadius(12)
-                            .shadow(radius: 2)
-                            .padding(.horizontal)
-                    }
-                    
-                    Spacer().frame(height: 20)
-                    
-                    Button(action: {
-                        viewModel.convertCurrency()
-                    }) {
-                        Text("Convert")
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .padding()
-                            .frame(maxWidth: .infinity)
-                            .background(Color.blue)
-                            .cornerRadius(12)
-                            .foregroundColor(.white)
-                            .shadow(radius: 2)
-                    }
-                    .padding(.horizontal)
                 }
-            }
-            .navigationTitle("Currency Converter")
-            .alert(item: $viewModel.errorWrapper) { error in
-                Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    isTextFieldFocused = false
+                }
+                .navigationTitle("Currency Converter")
+                .alert(item: $viewModel.errorWrapper) { error in
+                    Alert(title: Text("Error"), message: Text(error.message), dismissButton: .default(Text("OK")))
+                }
             }
         }
     }
 }
+
 
 
 

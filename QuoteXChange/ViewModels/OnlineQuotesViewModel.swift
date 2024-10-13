@@ -6,17 +6,38 @@
 //
 
 import Foundation
-import Combine
 
 class OnlineQuotesViewModel: ObservableObject {
     @Published var quotes: [Quote] = []
-     var webSocketManager = WebSocketManager()
-     var cancellables = Set<AnyCancellable>()
+    @Published var isLoading: Bool = true
+    @Published var errorWrapper: ErrorWrapper?
+    @Published var isConnected: Bool = false
+    
+    private var webSocketManager: WebSocketManager
 
-    init() {
-        webSocketManager.$quotes
-            .assign(to: \.quotes, on: self)
-            .store(in: &cancellables)
+    init(webSocketManager: WebSocketManager = WebSocketManager()) {
+        self.webSocketManager = webSocketManager
+        self.webSocketManager.$quotes
+            .assign(to: &$quotes)
+        self.loadCachedQuotes()
+        self.connectToWebSocket()
+
+        self.webSocketManager.$isConnected
+            .assign(to: &$isConnected)
+    }
+    
+    private func connectToWebSocket() {
+        webSocketManager.connect()
+        isLoading = false 
+    }
+
+    private func loadCachedQuotes() {
+        self.quotes = webSocketManager.quotes
+        self.isLoading = false 
+    }
+    
+    func disconnect() {
+        webSocketManager.disconnect()
     }
 }
 

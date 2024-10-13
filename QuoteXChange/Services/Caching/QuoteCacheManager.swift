@@ -8,21 +8,23 @@
 import Foundation
 
 class QuoteCacheManager {
-    private let cacheKey = "cachedQuotes"
+    private let key = "cachedQuotes"
     
-    /// here we save the current quotes to UserDefaults
-    func saveQuotesToCache(_ quotes: [Quote]) {
-        let quotesData = try? JSONEncoder().encode(quotes)
-        UserDefaults.standard.set(quotesData, forKey: cacheKey)
+    func saveQuotes(_ quotes: [Quote]) {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(quotes) {
+            UserDefaults.standard.set(encoded, forKey: key)
+        }
     }
     
-    /// here we load cached quotes from UserDefaults
-    func loadCachedQuotes() -> [Quote]? {
-        if let cachedQuotesData = UserDefaults.standard.data(forKey: cacheKey),
-           let cachedQuotes = try? JSONDecoder().decode([Quote].self, from: cachedQuotesData) {
-            return cachedQuotes
+    func loadQuotes() -> [Quote] {
+        if let data = UserDefaults.standard.data(forKey: key) {
+            let decoder = JSONDecoder()
+            if let cachedQuotes = try? decoder.decode([Quote].self, from: data) {
+                return cachedQuotes
+            }
         }
-        return nil
+        return []
     }
 }
 
